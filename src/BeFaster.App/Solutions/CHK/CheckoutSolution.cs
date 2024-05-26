@@ -8,7 +8,7 @@ namespace BeFaster.App.Solutions.CHK
     {
         public static int ComputePrice(string skus)
         {
-            Dictionary<char, int> BasePriceOfEachItem = GetSpecificationOfEachItem();
+            Dictionary<char, ItemSpecification> SpecificationOfEachItem = GetSpecificationOfEachItem();
             Dictionary<char, int> CountOfEachItem = GetCountOfEachItem(skus);
 
             if (CountOfEachItem == null)
@@ -20,7 +20,7 @@ namespace BeFaster.App.Solutions.CHK
 
             foreach(KeyValuePair<char, int> keyValuePair in CountOfEachItem)
             {
-                TotalPrice += BasePriceOfEachItem[keyValuePair.Key] * keyValuePair.Value;
+                TotalPrice += SpecificationOfEachItem[keyValuePair.Key].BasePrice * keyValuePair.Value;
             }
 
             return TotalPrice;  
@@ -52,40 +52,42 @@ namespace BeFaster.App.Solutions.CHK
 
         private static Dictionary<char, ItemSpecification> GetSpecificationOfEachItem()
         {
-            Dictionary<char, ItemSpecification> BasePriceOfEachItem = new Dictionary<char, ItemSpecification>();
-            BasePriceOfEachItem['A'] = new ItemSpecification()
+            Dictionary<char, ItemSpecification> SpecificationOfEachItem = new Dictionary<char, ItemSpecification>();
+            SpecificationOfEachItem['A'] = new ItemSpecification()
             {
                 BasePrice = 50,
-                HasOffer = true,
+                OfferType = OfferType.Discount,
                 OfferMultiple = 3,
                 OfferMultiple2 = 5
             };
-            BasePriceOfEachItem['B'] = new ItemSpecification()
+            SpecificationOfEachItem['B'] = new ItemSpecification()
             {
                 BasePrice = 30,
-                HasOffer = true,
+                OfferType = OfferType.Discount,
                 OfferMultiple = 2
             };
-            BasePriceOfEachItem['C'] = new ItemSpecification()
+            SpecificationOfEachItem['C'] = new ItemSpecification()
             {
                 BasePrice = 20,
             };
-            BasePriceOfEachItem['D'] = new ItemSpecification()
+            SpecificationOfEachItem['D'] = new ItemSpecification()
             {
                 BasePrice = 15,
             };
-            BasePriceOfEachItem['E'] = new ItemSpecification()
+            SpecificationOfEachItem['E'] = new ItemSpecification()
             {
                 BasePrice = 40,
+                OfferType = OfferType.FreebieOfDifferentItem,
                 OfferMultiple = 2
             };
-            BasePriceOfEachItem['F'] = new ItemSpecification()
+            SpecificationOfEachItem['F'] = new ItemSpecification()
             {
                 BasePrice = 10,
+                OfferType = OfferType.FreebieOfSameItem,
                 OfferMultiple = 2,
             };
 
-            return BasePriceOfEachItem;
+            return SpecificationOfEachItem;
         }
 
         //    int a_count = 0;
@@ -190,3 +192,4 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
+
