@@ -38,6 +38,10 @@ namespace BeFaster.App.Solutions.CHK
                 else if (c == 'E')
                 {
                     e_count++;
+                    if (e_count % 2 == 0)
+                    {
+                        DecrementB(ref b_count, ref b_multiples_2);
+                    }
                 }
                 else
                 {
@@ -59,18 +63,31 @@ namespace BeFaster.App.Solutions.CHK
             int remaining_b_count = b_count - (b_multiples_2 * 2);
             int b_price = (b_multiples_2 * 45) + remaining_b_count * 30;
 
+            if (b_price < 0)
+            {
+                b_price = 0;
+            }
+
             return (e_count * 40) + (d_count * 15) + (c_count * 20) + b_price + a_price;
         }
 
         private static void IncrementB(ref int b_count, ref int b_multiples_2)
         {
             b_count++;
-            if (b_count % 2 == 0)
+            if (b_count % 2 == 0 && b_count != 0)
             {
                 b_multiples_2++;
             }
         }
 
+        private static void DecrementB(ref int b_count, ref int b_multiples_2)
+        {
+            if (b_count % 2 == 0)
+            {
+                b_multiples_2--;
+            }
+            b_count--;
+        }
         private static void IncrementA(ref int a_count, ref int a_multiples_of_5)
         {
             a_count++;
@@ -81,4 +98,5 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
