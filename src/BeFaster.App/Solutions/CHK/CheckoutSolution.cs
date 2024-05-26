@@ -24,7 +24,7 @@ namespace BeFaster.App.Solutions.CHK
                         a_multipules_of_3++;
                     }
                 }
-                if (c == 'B')
+                else if (c == 'B')
                 {
                     b_count++;
                     if (b_count % 2 == 0)
@@ -32,13 +32,17 @@ namespace BeFaster.App.Solutions.CHK
                         b_multipules_2++;
                     }
                 }
-                if (c == 'C')
+                else if (c == 'C')
                 {
                     c_count++;
                 }
-                if (c == 'D')
+                else if (c == 'D')
                 {
                     d_count++;
+                }
+                else
+                {
+                    return -1;
                 }
             }
 
@@ -52,4 +56,5 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
