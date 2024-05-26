@@ -98,7 +98,7 @@ namespace BeFaster.App.Solutions.CHK
             }
             else
             {
-                int OfferPrice = (itemCount - Remainder) * DiscountOffer.Multiple;
+                int OfferPrice = ((itemCount - Remainder)/DiscountOffer.Multiple) * DiscountOffer.Value;
                 int remainderPrice = Remainder * itemSpecification.BasePrice;
                 return OfferPrice + remainderPrice;
             }
@@ -299,6 +299,7 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
+
 
 
 
