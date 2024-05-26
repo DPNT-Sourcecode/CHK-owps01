@@ -18,11 +18,7 @@ namespace BeFaster.App.Solutions.CHK
             {
                 if (c == 'A')
                 {
-                    a_count++;
-                    if (a_count % 3 == 0)
-                    {
-                        a_multiples_of_3++;
-                    }
+                    IncrementA(ref a_count, ref a_multiples_of_3);
                 }
                 else if (c == 'B')
                 {
@@ -54,8 +50,18 @@ namespace BeFaster.App.Solutions.CHK
 
             return (d_count * 15) + (c_count * 20) + b_price + a_price;
         }
+
+        private static void IncrementA(ref int a_count, ref int a_multiples_of_3)
+        {
+            a_count++;
+            if (a_count % 3 == 0)
+            {
+                a_multiples_of_3++;
+            }
+        }
     }
 }
+
 
 
 
