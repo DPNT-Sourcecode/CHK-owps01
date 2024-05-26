@@ -25,6 +25,12 @@ namespace BeFaster.App.Tests.Solutions.CHK
             return CheckoutSolution.ComputePrice(skus);
         }
 
+        [TestCase("AAAAAAAAA", ExpectedResult = 380)]
+        public int ComputePriceWith2Multiples(string skus)
+        {
+            return CheckoutSolution.ComputePrice(skus);
+        }
+
         [TestCase("EEB", ExpectedResult = 80)]
         public int ComputePriceWithMultipleAndFreebieOfDifferentItem(string skus)
         {
@@ -38,4 +44,5 @@ namespace BeFaster.App.Tests.Solutions.CHK
         }
     }
 }
+
 
