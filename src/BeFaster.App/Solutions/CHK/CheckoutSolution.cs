@@ -76,7 +76,9 @@ namespace BeFaster.App.Solutions.CHK
             }
             else
             {
-                return Price - (RecipientCount * SpecificationOfEachItem[itemSpecification.FreebieOffer.Recipient].BasePrice);
+                ItemSpecification RecipientItem = SpecificationOfEachItem[itemSpecification.FreebieOffer.Recipient];
+                DiscountOffer RecipientDiscountOffer = RecipientItem.DiscountOffers.First();
+                return Price - (RecipientCount > RecipientDiscountOffer.Multiple ? RecipientCount * RecipientDiscountOffer.Value : RecipientCount * RecipientItem.BasePrice);
             }
         }
 
@@ -383,5 +385,6 @@ namespace BeFaster.App.Solutions.CHK
         
     }
 }
+
 
 
