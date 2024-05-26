@@ -43,17 +43,47 @@ namespace BeFaster.App.Solutions.CHK
                 case OfferType.Discount:
                     itemPrice = GetItemDiscountPrice(itemSpecification, itemCount);
                     break;
-                //case OfferType.FreebieOfSameItem:
-                //    // Do Something
-                //    break;
-                //case OfferType.FreebieOfDifferentItem:
-                //    // Do Something
-                //    break;
-                //default:
-                //    // Do Something
-                //    break;
+                case OfferType.MultipleDiscounts:
+                    itemPrice = GetItemWithMultipleDiscountPrice(itemSpecification, itemCount);
+                    break;
+                    //case OfferType.FreebieOfSameItem:
+                    //    // Do Something
+                    //    break;
+                    //case OfferType.FreebieOfDifferentItem:
+                    //    // Do Something
+                    //    break;
+                    //default:
+                    //    // Do Something
+                    //    break;
             }
             return itemPrice;
+        }
+
+        private static int GetItemWithMultipleDiscountPrice(ItemSpecification itemSpecification, int itemCount)
+        {
+            // Assume OfferMultiple2 is always greater than OfferMultiple
+
+            int Remainder = itemCount % itemSpecification.OfferMultiple2;
+            if (Remainder == 0)
+            {
+                return itemCount * itemSpecification.OfferMultiple2;
+            }
+            else
+            {
+                int NumberOfItemsForOfferMultiple2 = itemCount - Remainder;
+                int OfferPrice = NumberOfItemsForOfferMultiple2 * itemSpecification.OfferMultiple;
+
+                Remainder = itemCount - NumberOfItemsForOfferMultiple2;
+
+                if (Remainder >= itemSpecification.OfferMultiple)
+                {
+                    return OfferPrice + GetItemDiscountPrice(itemSpecification, Remainder);
+                }
+                else
+                {
+                    return OfferPrice + itemSpecification.BasePrice * Remainder;
+                }
+            }
         }
 
         private static int GetItemDiscountPrice(ItemSpecification itemSpecification, int itemCount)
@@ -237,6 +267,3 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
-
-
-
