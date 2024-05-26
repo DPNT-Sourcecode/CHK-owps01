@@ -71,7 +71,7 @@ namespace BeFaster.App.Solutions.CHK
             else
             {
                 int NumberOfItemsForOfferMultiple2 = itemCount - Remainder;
-                int OfferPrice = NumberOfItemsForOfferMultiple2 * LargerDiscountOffer.Value;
+                int OfferPrice = (NumberOfItemsForOfferMultiple2 / LargerDiscountOffer.Multiple) * LargerDiscountOffer.Value;
 
                 Remainder = itemCount - NumberOfItemsForOfferMultiple2;
                 DiscountOffer SmallerDiscount = itemSpecification.DiscountOffers.First();
@@ -299,5 +299,6 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
+
 
 
