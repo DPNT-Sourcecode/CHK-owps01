@@ -4,7 +4,9 @@
     {
         None = 0,
         Discount = 1,
-        FreebieOfSameItem = 2,
-        FreebieOfDifferentItem = 3
+        MultipleDiscounts = 2,
+        FreebieOfSameItem = 3,
+        FreebieOfDifferentItem = 4
     }
 }
+

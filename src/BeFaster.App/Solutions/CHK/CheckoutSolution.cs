@@ -1,4 +1,6 @@
 ﻿using BeFaster.Runner.Exceptions;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,12 +20,38 @@ namespace BeFaster.App.Solutions.CHK
 
             int TotalPrice = 0;
 
-            foreach(KeyValuePair<char, int> keyValuePair in CountOfEachItem)
+            foreach (KeyValuePair<char, int> keyValuePair in CountOfEachItem)
             {
-                TotalPrice += SpecificationOfEachItem[keyValuePair.Key].BasePrice * keyValuePair.Value;
+                if (SpecificationOfEachItem[keyValuePair.Key].OfferType == OfferType.None)
+                {
+                    TotalPrice += SpecificationOfEachItem[keyValuePair.Key].BasePrice * keyValuePair.Value;
+                }
+                else
+                {
+                    TotalPrice += GetTotalPrice(SpecificationOfEachItem[keyValuePair.Key], keyValuePair.Value);
+                }
             }
 
-            return TotalPrice;  
+            return TotalPrice;
+        }
+
+        private static int GetTotalPrice(ItemSpecification itemSpecification, int itemCount)
+        {
+            switch (itemSpecification.OfferType)
+            {
+                case OfferType.Discount:
+                    // Do Something
+                    break;
+                case OfferType.FreebieOfSameItem:
+                    // Do Something
+                    break;
+                case OfferType.FreebieOfDifferentItem:
+                    // Do Something
+                    break;
+                default:
+                    // Do Something
+                    break;
+            }
         }
 
         private static Dictionary<char, int> GetCountOfEachItem(string skus)
@@ -56,7 +84,7 @@ namespace BeFaster.App.Solutions.CHK
             SpecificationOfEachItem['A'] = new ItemSpecification()
             {
                 BasePrice = 50,
-                OfferType = OfferType.Discount,
+                OfferType = OfferType.MultipleDiscounts,
                 OfferMultiple = 3,
                 OfferMultiple2 = 5
             };
@@ -192,4 +220,5 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
+
 
