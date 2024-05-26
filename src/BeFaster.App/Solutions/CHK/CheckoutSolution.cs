@@ -7,18 +7,23 @@ namespace BeFaster.App.Solutions.CHK
     {
         public static int ComputePrice(string skus)
         {
+            int total_price = 0;
+
             int a_count = 0;
-            int a_multiples_of_3 = 0;
+            int a_multiples_of_5 = 0;
+
             int b_count = 0;
             int b_multiples_2 = 0;
+
             int c_count = 0;
             int d_count = 0;
+            int e_count = 0;
 
             foreach (char c in skus)
             {
                 if (c == 'A')
                 {
-                    IncrementA(ref a_count, ref a_multiples_of_3);
+                    IncrementA(ref a_count, ref a_multiples_of_5);
                 }
                 else if (c == 'B')
                 {
@@ -32,19 +37,35 @@ namespace BeFaster.App.Solutions.CHK
                 {
                     d_count++;
                 }
+                else if (c == 'E')
+                {
+                    e_count++;
+                    if (e_count % 2 == 0)
+                    {
+                        total_price += 30;
+                    }
+                }
                 else
                 {
                     return -1;
                 }
             }
 
-            int remaining_a_count = a_count - (a_multiples_of_3 * 3);
-            int a_price = (a_multiples_of_3 * 130) + remaining_a_count * 50;
+            int remaining_a_count = a_count - (a_multiples_of_5 * 5);
+            int three_multiple_price = 0;
+
+            if (remaining_a_count >= 3)
+            {
+                remaining_a_count -= 3;
+                three_multiple_price += 130;
+            }
+
+            int a_price = (a_multiples_of_5 * 200) + remaining_a_count * 50 + three_multiple_price;
 
             int remaining_b_count = b_count - (b_multiples_2 * 2);
             int b_price = (b_multiples_2 * 45) + remaining_b_count * 30;
 
-            return (d_count * 15) + (c_count * 20) + b_price + a_price;
+            return (e_count * 40) + (d_count * 15) + (c_count * 20) + b_price + a_price + total_price;
         }
 
         private static void IncrementB(ref int b_count, ref int b_multiples_2)
@@ -56,16 +77,17 @@ namespace BeFaster.App.Solutions.CHK
             }
         }
 
-        private static void IncrementA(ref int a_count, ref int a_multiples_of_3)
+        private static void IncrementA(ref int a_count, ref int a_multiples_of_5)
         {
             a_count++;
-            if (a_count % 3 == 0)
+            if (a_count % 5 == 0)
             {
-                a_multiples_of_3++;
+                a_multiples_of_5++;
             }
         }
     }
 }
+
 
 
 
