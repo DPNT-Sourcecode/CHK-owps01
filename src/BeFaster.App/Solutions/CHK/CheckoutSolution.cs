@@ -28,29 +28,46 @@ namespace BeFaster.App.Solutions.CHK
                 }
                 else
                 {
-                    TotalPrice += GetTotalPrice(SpecificationOfEachItem[keyValuePair.Key], keyValuePair.Value);
+                    TotalPrice += GetItemPrice(SpecificationOfEachItem[keyValuePair.Key], keyValuePair.Value);
                 }
             }
 
             return TotalPrice;
         }
 
-        private static int GetTotalPrice(ItemSpecification itemSpecification, int itemCount)
+        private static int GetItemPrice(ItemSpecification itemSpecification, int itemCount)
         {
+            int itemPrice = 0;
             switch (itemSpecification.OfferType)
             {
                 case OfferType.Discount:
-                    // Do Something
+                    itemPrice = GetItemDiscountPrice(itemSpecification, itemCount);
                     break;
-                case OfferType.FreebieOfSameItem:
-                    // Do Something
-                    break;
-                case OfferType.FreebieOfDifferentItem:
-                    // Do Something
-                    break;
-                default:
-                    // Do Something
-                    break;
+                //case OfferType.FreebieOfSameItem:
+                //    // Do Something
+                //    break;
+                //case OfferType.FreebieOfDifferentItem:
+                //    // Do Something
+                //    break;
+                //default:
+                //    // Do Something
+                //    break;
+            }
+            return itemPrice;
+        }
+
+        private static int GetItemDiscountPrice(ItemSpecification itemSpecification, int itemCount)
+        {
+            int Remainder = itemCount % itemSpecification.OfferMultiple;
+            if (Remainder == 0)
+            {
+                return itemCount * itemSpecification.OfferMultiple;
+            }
+            else
+            {
+                int OfferPrice = (itemCount - Remainder) * itemSpecification.OfferMultiple;
+                int remainderPrice = Remainder * itemSpecification.BasePrice;
+                return OfferPrice + remainderPrice;
             }
         }
 
@@ -220,5 +237,6 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
+
 
 
