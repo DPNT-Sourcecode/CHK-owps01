@@ -196,7 +196,7 @@ namespace BeFaster.App.Solutions.CHK
                 OfferType = OfferType.FreebieOfSameItem,
                 FreebieOffer = new FreebieOffer()
                 {
-                    Multiple = 2,
+                    Multiple = 3,
                     Recipient = 'F'
                 }
             };
@@ -306,4 +306,5 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
+
 
