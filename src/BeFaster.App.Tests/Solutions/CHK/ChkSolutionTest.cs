@@ -48,5 +48,13 @@ namespace BeFaster.App.Tests.Solutions.CHK
             CheckoutSolution CheckoutSolution = new CheckoutSolution();
             return CheckoutSolution.ComputePrice(skus);
         }
+
+        [TestCase("AHGTYAS", ExpectedResult = 190)]
+        public int ComputePriceWithMultipleAndFreebieOfTheSameItem2(string skus)
+        {
+            CheckoutSolution CheckoutSolution = new CheckoutSolution();
+            return CheckoutSolution.ComputePrice(skus);
+        }
     }
 }
+
