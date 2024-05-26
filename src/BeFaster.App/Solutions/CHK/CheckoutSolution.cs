@@ -81,6 +81,7 @@ namespace BeFaster.App.Solutions.CHK
             return ((f_count - f_skip_counter) * 10) + (e_count * 40) + (d_count * 15) + (c_count * 20) + b_price + a_price;
         }
 
+        //This solution is terrible, I need to refactor this
         private static void IncrementB(ref int b_count, ref int b_multiples_2)
         {
             b_count++;
@@ -108,3 +109,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
