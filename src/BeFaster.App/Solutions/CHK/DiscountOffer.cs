@@ -8,5 +8,8 @@ namespace BeFaster.App.Solutions.CHK
 {
     internal class DiscountOffer
     {
+        public int Multiple { get; set; }
+        public int Value { get; set; }
     }
 }
+
