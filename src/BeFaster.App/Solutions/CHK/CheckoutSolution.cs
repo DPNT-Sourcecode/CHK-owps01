@@ -16,6 +16,7 @@ namespace BeFaster.App.Solutions.CHK
             int c_count = 0;
             int d_count = 0;
             int e_count = 0;
+            int f_count = 0;
 
             foreach (char c in skus)
             {
@@ -43,6 +44,14 @@ namespace BeFaster.App.Solutions.CHK
                         DecrementB(ref b_count, ref b_multiples_2);
                     }
                 }
+                else if (c == 'F')
+                {
+                    f_count++;
+                    if (f_count % 3 == 0)
+                    {
+                        f_count--;
+                    }
+                }
                 else
                 {
                     return -1;
@@ -68,7 +77,7 @@ namespace BeFaster.App.Solutions.CHK
                 b_price = 0;
             }
 
-            return (e_count * 40) + (d_count * 15) + (c_count * 20) + b_price + a_price;
+            return (f_count * 10) + (e_count * 40) + (d_count * 15) + (c_count * 20) + b_price + a_price;
         }
 
         private static void IncrementB(ref int b_count, ref int b_multiples_2)
@@ -98,6 +107,7 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
 
 
