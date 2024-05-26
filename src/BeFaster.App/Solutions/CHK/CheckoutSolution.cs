@@ -7,8 +7,6 @@ namespace BeFaster.App.Solutions.CHK
     {
         public static int ComputePrice(string skus)
         {
-            int total_price = 0;
-
             int a_count = 0;
             int a_multiples_of_5 = 0;
 
@@ -40,10 +38,6 @@ namespace BeFaster.App.Solutions.CHK
                 else if (c == 'E')
                 {
                     e_count++;
-                    if (e_count % 2 == 0)
-                    {
-                        total_price += 30;
-                    }
                 }
                 else
                 {
@@ -65,7 +59,7 @@ namespace BeFaster.App.Solutions.CHK
             int remaining_b_count = b_count - (b_multiples_2 * 2);
             int b_price = (b_multiples_2 * 45) + remaining_b_count * 30;
 
-            return (e_count * 40) + (d_count * 15) + (c_count * 20) + b_price + a_price + total_price;
+            return (e_count * 40) + (d_count * 15) + (c_count * 20) + b_price + a_price;
         }
 
         private static void IncrementB(ref int b_count, ref int b_multiples_2)
@@ -87,3 +81,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
