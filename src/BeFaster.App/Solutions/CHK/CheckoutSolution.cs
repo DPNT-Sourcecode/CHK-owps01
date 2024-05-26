@@ -6,11 +6,12 @@ using System.Linq;
 
 namespace BeFaster.App.Solutions.CHK
 {
-    public static class CheckoutSolution
+    public class CheckoutSolution
     {
-        public static int ComputePrice(string skus)
+        Dictionary<char, ItemSpecification> SpecificationOfEachItem;
+        public int ComputePrice(string skus)
         {
-            Dictionary<char, ItemSpecification> SpecificationOfEachItem = GetSpecificationOfEachItem();
+            SpecificationOfEachItem = GetSpecificationOfEachItem();
             Dictionary<char, int> CountOfEachItem = GetCountOfEachItem(skus);
 
             if (CountOfEachItem == null)
@@ -47,13 +48,31 @@ namespace BeFaster.App.Solutions.CHK
                     ItemPrice = GetItemWithMultipleDiscountPrice(itemSpecification, itemCount);
                     break;
                 case OfferType.FreebieOfSameItem:
-                    ItemPrice = GetFreebieOfSameItemPrice(itemSpecification, itemCount); 
+                    ItemPrice = GetFreebieOfSameItemPrice(itemSpecification, itemCount);
                     break;
                 case OfferType.FreebieOfDifferentItem:
-                    ItemPrice = GetFreebieOfDifferentItemPrice(ItemPrice, itemCount, countOfEachItem);
+                    ItemPrice = GetFreebieOfDifferentItemPrice(itemSpecification, itemCount, countOfEachItem);
                     break;
             }
             return ItemPrice;
+        }
+
+        private int GetFreebieOfDifferentItemPrice(ItemSpecification itemSpecification, int itemCount, Dictionary<char, int> countOfEachItem)
+        {
+            int Price = itemSpecification.BasePrice * itemCount;
+            int NumberOfFreebies = (itemCount - (itemCount % itemSpecification.FreebieOffer.Multiple)) / itemSpecification.FreebieOffer.Multiple;
+
+            int RecipientCount = countOfEachItem.ContainsKey(itemSpecification.FreebieOffer.Recipient) ? countOfEachItem[itemSpecification.FreebieOffer.Recipient] : 0;
+
+            if (RecipientCount == 0)
+            {
+                return Price;
+            }
+
+            else
+            {
+                return Price - ((RecipientCount - NumberOfFreebies) * SpecificationOfEachItem[itemSpecification.FreebieOffer.Recipient].BasePrice);
+            }
         }
 
         private static int GetFreebieOfSameItemPrice(ItemSpecification itemSpecification, int itemCount)
@@ -105,7 +124,7 @@ namespace BeFaster.App.Solutions.CHK
             }
             else
             {
-                int OfferPrice = ((itemCount - Remainder)/DiscountOffer.Multiple) * DiscountOffer.Value;
+                int OfferPrice = ((itemCount - Remainder) / DiscountOffer.Multiple) * DiscountOffer.Value;
                 int remainderPrice = Remainder * itemSpecification.BasePrice;
                 return OfferPrice + remainderPrice;
             }
@@ -306,3 +325,4 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
+
