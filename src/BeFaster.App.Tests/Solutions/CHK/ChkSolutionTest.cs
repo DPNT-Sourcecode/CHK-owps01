@@ -49,12 +49,27 @@ namespace BeFaster.App.Tests.Solutions.CHK
             return CheckoutSolution.ComputePrice(skus);
         }
 
-        [TestCase("AHGTYAS", ExpectedResult = 190)]
-        public int ComputePriceWithMultipleAndFreebieOfTheSameItem2(string skus)
+        [TestCase("EEEEBB", ExpectedResult = 160)]
+        public int ComputePriceFailedTest1(string skus)
+        {
+            CheckoutSolution CheckoutSolution = new CheckoutSolution();
+            return CheckoutSolution.ComputePrice(skus);
+        }
+
+        [TestCase("BEBEEE", ExpectedResult = 160)]
+        public int ComputePriceFailedTest2(string skus)
+        {
+            CheckoutSolution CheckoutSolution = new CheckoutSolution();
+            return CheckoutSolution.ComputePrice(skus);
+        }
+
+        [TestCase("ABCDEFGHIJKLMNOPQRSTUVWXYZ", ExpectedResult = 965)]
+        public int ComputePriceFailedTest3(string skus)
         {
             CheckoutSolution CheckoutSolution = new CheckoutSolution();
             return CheckoutSolution.ComputePrice(skus);
         }
     }
 }
+
 
