@@ -70,9 +70,13 @@ namespace BeFaster.App.Solutions.CHK
                 return Price;
             }
 
-            else
+            if (RecipientCount > NumberOfFreebies)
             {
                 return Price - ((RecipientCount - NumberOfFreebies) * SpecificationOfEachItem[itemSpecification.FreebieOffer.Recipient].BasePrice);
+            }
+            else
+            {
+                return Price - (RecipientCount * SpecificationOfEachItem[itemSpecification.FreebieOffer.Recipient].BasePrice);
             }
         }
 
@@ -326,5 +330,6 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
+
 
 
