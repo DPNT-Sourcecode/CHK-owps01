@@ -8,7 +8,7 @@ namespace BeFaster.App.Solutions.CHK
     {
         public static int ComputePrice(string skus)
         {
-            Dictionary<char, int> BasePriceOfEachItem = GetBasePriceOfEachItem();
+            Dictionary<char, int> BasePriceOfEachItem = GetSpecificationOfEachItem();
             Dictionary<char, int> CountOfEachItem = GetCountOfEachItem(skus);
 
             if (CountOfEachItem == null)
@@ -50,9 +50,9 @@ namespace BeFaster.App.Solutions.CHK
             return CountsOfEachItem;
         }
 
-        private static Dictionary<char, int> GetBasePriceOfEachItem()
+        private static Dictionary<char, ItemSpecification> GetSpecificationOfEachItem()
         {
-            Dictionary<char, int> BasePriceOfEachItem = new Dictionary<char, int>();
+            Dictionary<char, int> BasePriceOfEachItem = new Dictionary<char, ItemSpecification>();
             BasePriceOfEachItem['A'] = 50;
             BasePriceOfEachItem['B'] = 30;
             BasePriceOfEachItem['C'] = 20;
@@ -165,4 +165,5 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
+
 
