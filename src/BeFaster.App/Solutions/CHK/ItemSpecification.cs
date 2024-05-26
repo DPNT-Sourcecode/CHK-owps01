@@ -9,10 +9,11 @@ namespace BeFaster.App.Solutions.CHK
     internal class ItemSpecification
     {
         public OfferType OfferType { get; set; }
-        public List<DiscountOffer> DiscountOffer { get; set; }
-        public char FreebieRecepient { get; set; }
+        public List<DiscountOffer> DiscountOffers { get; set; }
+        public FreebieOffer FreebieOffer { get; set; }
         public int BasePrice { get; set; }  
     }
 }
+
 
 

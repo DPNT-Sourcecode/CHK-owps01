@@ -63,10 +63,10 @@ namespace BeFaster.App.Solutions.CHK
         {
             // Assume OfferMultiple2 is always greater than OfferMultiple
 
-            int Remainder = itemCount % itemSpecification.OfferMultiple2;
+            int Remainder = itemCount % itemSpecification.OfferMultiple2.;
             if (Remainder == 0)
             {
-                return itemCount * itemSpecification.OfferMultiple2;
+                return (itemCount / itemSpecification.OfferMultiple2) ;
             }
             else
             {
@@ -81,7 +81,7 @@ namespace BeFaster.App.Solutions.CHK
                 }
                 else
                 {
-                    return OfferPrice + itemSpecification.BasePrice * Remainder;
+                    return OfferPrice + (itemSpecification.BasePrice * Remainder);
                 }
             }
         }
@@ -132,15 +132,33 @@ namespace BeFaster.App.Solutions.CHK
             {
                 BasePrice = 50,
                 OfferType = OfferType.MultipleDiscounts,
-                OfferMultiple = 3,
-                OfferMultiple2 = 5
+                DiscountOffers = new List<DiscountOffer> {
+                    new DiscountOffer()
+                    {
+                        Multiple = 3,
+                        Value = 130
+                    },
+                    new DiscountOffer()
+                    {
+                        Multiple = 5,
+                        Value = 200
+                    }
+                }
             };
+
             SpecificationOfEachItem['B'] = new ItemSpecification()
             {
                 BasePrice = 30,
                 OfferType = OfferType.Discount,
-                OfferMultiple = 2
+                DiscountOffers = new List<DiscountOffer> {
+                    new DiscountOffer()
+                    {
+                        Multiple = 2,
+                        Value = 45
+                    }
+                }
             };
+
             SpecificationOfEachItem['C'] = new ItemSpecification()
             {
                 BasePrice = 20,
@@ -153,7 +171,19 @@ namespace BeFaster.App.Solutions.CHK
             {
                 BasePrice = 40,
                 OfferType = OfferType.FreebieOfDifferentItem,
-                OfferMultiple = 2
+
+                DiscountOffers = new List<DiscountOffer> {
+                    new DiscountOffer()
+                    {
+                        Multiple = 3,
+                        Value = 130
+                    },
+                    new DiscountOffer()
+                    {
+                        Multiple = 5,
+                        Value = 200
+                    }
+                }
             };
             SpecificationOfEachItem['F'] = new ItemSpecification()
             {
@@ -267,3 +297,4 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
+
