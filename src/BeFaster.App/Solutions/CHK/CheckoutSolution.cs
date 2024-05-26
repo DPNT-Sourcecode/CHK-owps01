@@ -9,10 +9,11 @@ namespace BeFaster.App.Solutions.CHK
     public class CheckoutSolution
     {
         Dictionary<char, ItemSpecification> SpecificationOfEachItem;
+        Dictionary<char, int> CountOfEachItem;
         public int ComputePrice(string skus)
         {
             SpecificationOfEachItem = GetSpecificationOfEachItem();
-            Dictionary<char, int> CountOfEachItem = GetCountOfEachItem(skus);
+            CountOfEachItem = GetCountOfEachItem(skus);
 
             if (CountOfEachItem == null)
             {
@@ -29,14 +30,14 @@ namespace BeFaster.App.Solutions.CHK
                 }
                 else
                 {
-                    TotalPrice += GetItemPrice(SpecificationOfEachItem[keyValuePair.Key], keyValuePair.Value, CountOfEachItem);
+                    TotalPrice += GetItemPrice(SpecificationOfEachItem[keyValuePair.Key], keyValuePair.Value);
                 }
             }
 
             return TotalPrice;
         }
 
-        private static int GetItemPrice(ItemSpecification itemSpecification, int itemCount, Dictionary<char, int> countOfEachItem)
+        private int GetItemPrice(ItemSpecification itemSpecification, int itemCount)
         {
             int ItemPrice = 0;
             switch (itemSpecification.OfferType)
@@ -51,18 +52,18 @@ namespace BeFaster.App.Solutions.CHK
                     ItemPrice = GetFreebieOfSameItemPrice(itemSpecification, itemCount);
                     break;
                 case OfferType.FreebieOfDifferentItem:
-                    ItemPrice = GetFreebieOfDifferentItemPrice(itemSpecification, itemCount, countOfEachItem);
+                    ItemPrice = GetFreebieOfDifferentItemPrice(itemSpecification, itemCount);
                     break;
             }
             return ItemPrice;
         }
 
-        private int GetFreebieOfDifferentItemPrice(ItemSpecification itemSpecification, int itemCount, Dictionary<char, int> countOfEachItem)
+        private int GetFreebieOfDifferentItemPrice(ItemSpecification itemSpecification, int itemCount)
         {
             int Price = itemSpecification.BasePrice * itemCount;
             int NumberOfFreebies = (itemCount - (itemCount % itemSpecification.FreebieOffer.Multiple)) / itemSpecification.FreebieOffer.Multiple;
 
-            int RecipientCount = countOfEachItem.ContainsKey(itemSpecification.FreebieOffer.Recipient) ? countOfEachItem[itemSpecification.FreebieOffer.Recipient] : 0;
+            int RecipientCount = CountOfEachItem.ContainsKey(itemSpecification.FreebieOffer.Recipient) ? CountOfEachItem[itemSpecification.FreebieOffer.Recipient] : 0;
 
             if (RecipientCount == 0)
             {
@@ -325,4 +326,5 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
+
 
