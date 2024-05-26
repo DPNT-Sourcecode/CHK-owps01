@@ -82,7 +82,7 @@ namespace BeFaster.App.Solutions.CHK
 
         private static void DecrementB(ref int b_count, ref int b_multiples_2)
         {
-            if (b_count % 2 == 0)
+            if (b_count % 2 == 0 && b_count != 0)
             {
                 b_multiples_2--;
             }
@@ -98,5 +98,6 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
 
