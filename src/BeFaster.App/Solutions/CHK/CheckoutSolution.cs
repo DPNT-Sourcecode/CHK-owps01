@@ -28,32 +28,32 @@ namespace BeFaster.App.Solutions.CHK
                 }
                 else
                 {
-                    TotalPrice += GetItemPrice(SpecificationOfEachItem[keyValuePair.Key], keyValuePair.Value);
+                    TotalPrice += GetItemPrice(SpecificationOfEachItem[keyValuePair.Key], keyValuePair.Value, CountOfEachItem);
                 }
             }
 
             return TotalPrice;
         }
 
-        private static int GetItemPrice(ItemSpecification itemSpecification, int itemCount)
+        private static int GetItemPrice(ItemSpecification itemSpecification, int itemCount, Dictionary<char, int> countOfEachItem)
         {
-            int itemPrice = 0;
+            int ItemPrice = 0;
             switch (itemSpecification.OfferType)
             {
                 case OfferType.Discount:
-                    itemPrice = GetItemDiscountPrice(itemSpecification, itemCount);
+                    ItemPrice = GetItemDiscountPrice(itemSpecification, itemCount);
                     break;
                 case OfferType.MultipleDiscounts:
-                    itemPrice = GetItemWithMultipleDiscountPrice(itemSpecification, itemCount);
+                    ItemPrice = GetItemWithMultipleDiscountPrice(itemSpecification, itemCount);
                     break;
                 case OfferType.FreebieOfSameItem:
-                    itemPrice = GetFreebieOfSameItemPrice(itemSpecification, itemCount); 
+                    ItemPrice = GetFreebieOfSameItemPrice(itemSpecification, itemCount); 
                     break;
                 case OfferType.FreebieOfDifferentItem:
-                    // Do Something
+                    ItemPrice = GetFreebieOfDifferentItemPrice(ItemPrice, itemCount, countOfEachItem);
                     break;
             }
-            return itemPrice;
+            return ItemPrice;
         }
 
         private static int GetFreebieOfSameItemPrice(ItemSpecification itemSpecification, int itemCount)
@@ -306,5 +306,6 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
+
 
 
