@@ -52,13 +52,38 @@ namespace BeFaster.App.Solutions.CHK
 
         private static Dictionary<char, ItemSpecification> GetSpecificationOfEachItem()
         {
-            Dictionary<char, int> BasePriceOfEachItem = new Dictionary<char, ItemSpecification>();
-            BasePriceOfEachItem['A'] = 50;
-            BasePriceOfEachItem['B'] = 30;
-            BasePriceOfEachItem['C'] = 20;
-            BasePriceOfEachItem['D'] = 15;
-            BasePriceOfEachItem['E'] = 40;
-            BasePriceOfEachItem['F'] = 10;
+            Dictionary<char, ItemSpecification> BasePriceOfEachItem = new Dictionary<char, ItemSpecification>();
+            BasePriceOfEachItem['A'] = new ItemSpecification()
+            {
+                BasePrice = 50,
+                HasOffer = true,
+                OfferMultiple = 3,
+                OfferMultiple2 = 5
+            };
+            BasePriceOfEachItem['B'] = new ItemSpecification()
+            {
+                BasePrice = 30,
+                HasOffer = true,
+                OfferMultiple = 2
+            };
+            BasePriceOfEachItem['C'] = new ItemSpecification()
+            {
+                BasePrice = 20,
+            };
+            BasePriceOfEachItem['D'] = new ItemSpecification()
+            {
+                BasePrice = 15,
+            };
+            BasePriceOfEachItem['E'] = new ItemSpecification()
+            {
+                BasePrice = 40,
+                OfferMultiple = 2
+            };
+            BasePriceOfEachItem['F'] = new ItemSpecification()
+            {
+                BasePrice = 10,
+                OfferMultiple = 2,
+            };
 
             return BasePriceOfEachItem;
         }
@@ -165,5 +190,3 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
-
-
