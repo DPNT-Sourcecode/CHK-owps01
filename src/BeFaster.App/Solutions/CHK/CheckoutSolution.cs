@@ -47,7 +47,7 @@ namespace BeFaster.App.Solutions.CHK
                     itemPrice = GetItemWithMultipleDiscountPrice(itemSpecification, itemCount);
                     break;
                 case OfferType.FreebieOfSameItem:
-                    itemPrice = GetFreebieOfSameItemPrice(itemSpecification, itemCount, itemCount); 
+                    itemPrice = GetFreebieOfSameItemPrice(itemSpecification, itemCount); 
                     break;
                 case OfferType.FreebieOfDifferentItem:
                     // Do Something
@@ -56,9 +56,13 @@ namespace BeFaster.App.Solutions.CHK
             return itemPrice;
         }
 
-        private static int GetFreebieOfSameItemPrice(ItemSpecification itemSpecification, int itemCount1, int itemCount2)
+        private static int GetFreebieOfSameItemPrice(ItemSpecification itemSpecification, int itemCount)
         {
-            throw new NotImplementedException();
+            FreebieOffer FreebieOffer = itemSpecification.FreebieOffer;
+            int Remainder = itemCount % FreebieOffer.Multiple;
+
+            int NumberOfMultiples = (itemCount - Remainder) / FreebieOffer.Multiple;
+            return (itemCount - NumberOfMultiples) * itemSpecification.BasePrice;
         }
 
         private static int GetItemWithMultipleDiscountPrice(ItemSpecification itemSpecification, int itemCount)
@@ -302,3 +306,4 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
+
