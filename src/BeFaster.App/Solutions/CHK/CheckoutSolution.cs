@@ -139,7 +139,8 @@ namespace BeFaster.App.Solutions.CHK
         {
             Dictionary<char, int> CountsOfEachItem = new Dictionary<char, int>();
 
-            char[] ValidCharacters = { 'A', 'B', 'C', 'D', 'E', 'F' };
+            char[] ValidCharacters = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+            'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
             foreach (char character in skus)
             {
@@ -382,4 +383,5 @@ namespace BeFaster.App.Solutions.CHK
         
     }
 }
+
 
