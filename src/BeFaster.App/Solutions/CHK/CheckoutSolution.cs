@@ -17,6 +17,7 @@ namespace BeFaster.App.Solutions.CHK
             int d_count = 0;
             int e_count = 0;
             int f_count = 0;
+            int free_fs = 0;
 
             foreach (char c in skus)
             {
@@ -47,9 +48,13 @@ namespace BeFaster.App.Solutions.CHK
                 else if (c == 'F')
                 {
                     f_count++;
-                    if (f_count % 3 == 0)
+                    if (f_count == 3)
                     {
-                        f_count--;
+                        free_fs++;
+                    }
+                    else if (f_count > 3 && f_count % 2 == 0)
+                    {
+                        free_fs++;
                     }
                 }
                 else
@@ -77,7 +82,7 @@ namespace BeFaster.App.Solutions.CHK
                 b_price = 0;
             }
 
-            return (f_count * 10) + (e_count * 40) + (d_count * 15) + (c_count * 20) + b_price + a_price;
+            return ((f_count - free_fs) * 10) + (e_count * 40) + (d_count * 15) + (c_count * 20) + b_price + a_price;
         }
 
         private static void IncrementB(ref int b_count, ref int b_multiples_2)
@@ -107,7 +112,3 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
-
-
-
-
