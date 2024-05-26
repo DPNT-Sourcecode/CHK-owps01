@@ -65,6 +65,8 @@
   <ItemGroup>
     <Compile Include="SendCommandToServer.cs" />
     <Compile Include="Solutions\CHK\CheckoutSolution.cs" />
+    <Compile Include="Solutions\CHK\DiscountOffer.cs" />
+    <Compile Include="Solutions\CHK\FreebieOffer.cs" />
     <Compile Include="Solutions\CHK\ItemSpecification.cs" />
     <Compile Include="Solutions\CHK\OfferType.cs" />
     <Compile Include="Solutions\FIZ\FizzBuzzSolution.cs" />

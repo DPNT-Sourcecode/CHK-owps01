@@ -62,20 +62,21 @@ namespace BeFaster.App.Solutions.CHK
         private static int GetItemWithMultipleDiscountPrice(ItemSpecification itemSpecification, int itemCount)
         {
             // Assume OfferMultiple2 is always greater than OfferMultiple
-
-            int Remainder = itemCount % itemSpecification.OfferMultiple2.;
+            DiscountOffer LargerDiscountOffer = itemSpecification.DiscountOffers.Last();
+            int Remainder = itemCount % LargerDiscountOffer.Multiple;
             if (Remainder == 0)
             {
-                return (itemCount / itemSpecification.OfferMultiple2) ;
+                return (itemCount / LargerDiscountOffer.Multiple) * LargerDiscountOffer.Value;
             }
             else
             {
                 int NumberOfItemsForOfferMultiple2 = itemCount - Remainder;
-                int OfferPrice = NumberOfItemsForOfferMultiple2 * itemSpecification.OfferMultiple;
+                int OfferPrice = NumberOfItemsForOfferMultiple2 * LargerDiscountOffer.Value;
 
                 Remainder = itemCount - NumberOfItemsForOfferMultiple2;
+                DiscountOffer SmallerDiscount = itemSpecification.DiscountOffers.First();
 
-                if (Remainder >= itemSpecification.OfferMultiple)
+                if (Remainder >= SmallerDiscount.Multiple)
                 {
                     return OfferPrice + GetItemDiscountPrice(itemSpecification, Remainder);
                 }
@@ -88,14 +89,16 @@ namespace BeFaster.App.Solutions.CHK
 
         private static int GetItemDiscountPrice(ItemSpecification itemSpecification, int itemCount)
         {
-            int Remainder = itemCount % itemSpecification.OfferMultiple;
+            DiscountOffer DiscountOffer = itemSpecification.DiscountOffers.First();
+            int Remainder = itemCount % DiscountOffer.Multiple;
+
             if (Remainder == 0)
             {
-                return itemCount * itemSpecification.OfferMultiple;
+                return (itemCount / DiscountOffer.Multiple) * DiscountOffer.Value;
             }
             else
             {
-                int OfferPrice = (itemCount - Remainder) * itemSpecification.OfferMultiple;
+                int OfferPrice = (itemCount - Remainder) * DiscountOffer.Multiple;
                 int remainderPrice = Remainder * itemSpecification.BasePrice;
                 return OfferPrice + remainderPrice;
             }
@@ -167,29 +170,28 @@ namespace BeFaster.App.Solutions.CHK
             {
                 BasePrice = 15,
             };
+
             SpecificationOfEachItem['E'] = new ItemSpecification()
             {
                 BasePrice = 40,
                 OfferType = OfferType.FreebieOfDifferentItem,
 
-                DiscountOffers = new List<DiscountOffer> {
-                    new DiscountOffer()
-                    {
-                        Multiple = 3,
-                        Value = 130
-                    },
-                    new DiscountOffer()
-                    {
-                        Multiple = 5,
-                        Value = 200
-                    }
+                FreebieOffer = new FreebieOffer()
+                {
+                    Multiple = 2,
+                    Recipient = 'B'
                 }
             };
+
             SpecificationOfEachItem['F'] = new ItemSpecification()
             {
                 BasePrice = 10,
                 OfferType = OfferType.FreebieOfSameItem,
-                OfferMultiple = 2,
+                FreebieOffer = new FreebieOffer()
+                {
+                    Multiple = 2,
+                    Recipient = 'F'
+                }
             };
 
             return SpecificationOfEachItem;
@@ -297,4 +299,5 @@ namespace BeFaster.App.Solutions.CHK
         //}
     }
 }
+
 
