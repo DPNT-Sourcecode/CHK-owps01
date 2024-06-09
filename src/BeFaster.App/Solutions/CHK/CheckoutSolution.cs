@@ -77,8 +77,18 @@ namespace BeFaster.App.Solutions.CHK
             else
             {
                 ItemSpecification RecipientItem = SpecificationOfEachItem[itemSpecification.FreebieOffer.Recipient];
-                DiscountOffer RecipientDiscountOffer = RecipientItem.DiscountOffers.First();
-                return Price - (RecipientCount >= RecipientDiscountOffer.Multiple ? RecipientCount * RecipientDiscountOffer.Value : RecipientCount * RecipientItem.BasePrice);
+                int PriceToPayForRecipientItems = RecipientCount * RecipientItem.BasePrice;
+
+                if (RecipientItem.DiscountOffers.Count == 1)
+                {
+                    PriceToPayForRecipientItems = GetItemDiscountPrice(RecipientItem, RecipientCount);
+                }
+                else if (RecipientItem.DiscountOffers.Count > 1)
+                {
+                    PriceToPayForRecipientItems = GetItemWithMultipleDiscountPrice(RecipientItem, RecipientCount);
+                }
+
+                return Price - PriceToPayForRecipientItems;
             }
         }
 
@@ -285,12 +295,12 @@ namespace BeFaster.App.Solutions.CHK
                     Recipient = 'M'
                 },
                 OfferType = OfferType.FreebieOfDifferentItem
-            }; 
-            
+            };
+
             SpecificationOfEachItem['O'] = new ItemSpecification()
             {
                 BasePrice = 10,
-            }; 
+            };
             SpecificationOfEachItem['P'] = new ItemSpecification()
             {
                 BasePrice = 50,
@@ -303,7 +313,7 @@ namespace BeFaster.App.Solutions.CHK
                     }
                 },
                 OfferType = OfferType.Discount
-            }; 
+            };
             SpecificationOfEachItem['Q'] = new ItemSpecification()
             {
                 BasePrice = 30,
@@ -316,7 +326,7 @@ namespace BeFaster.App.Solutions.CHK
                     }
                 },
                 OfferType = OfferType.Discount
-            }; 
+            };
             SpecificationOfEachItem['R'] = new ItemSpecification()
             {
                 BasePrice = 50,
@@ -326,15 +336,15 @@ namespace BeFaster.App.Solutions.CHK
                     Recipient = 'Q'
                 },
                 OfferType = OfferType.FreebieOfDifferentItem
-            }; 
+            };
             SpecificationOfEachItem['S'] = new ItemSpecification()
             {
                 BasePrice = 30,
-            }; 
+            };
             SpecificationOfEachItem['T'] = new ItemSpecification()
             {
                 BasePrice = 20,
-            }; 
+            };
             SpecificationOfEachItem['U'] = new ItemSpecification()
             {
                 BasePrice = 40,
@@ -344,7 +354,7 @@ namespace BeFaster.App.Solutions.CHK
                     Recipient = 'U'
                 },
                 OfferType = OfferType.FreebieOfSameItem
-            }; 
+            };
             SpecificationOfEachItem['V'] = new ItemSpecification()
             {
                 BasePrice = 50,
@@ -361,7 +371,7 @@ namespace BeFaster.App.Solutions.CHK
                 },
                 OfferType = OfferType.MultipleDiscounts
 
-            }; 
+            };
             SpecificationOfEachItem['W'] = new ItemSpecification()
             {
                 BasePrice = 20,
@@ -382,6 +392,7 @@ namespace BeFaster.App.Solutions.CHK
             return SpecificationOfEachItem;
         }
 
-        
+
     }
 }
+
