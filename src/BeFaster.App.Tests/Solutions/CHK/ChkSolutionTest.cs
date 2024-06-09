@@ -67,7 +67,8 @@ namespace BeFaster.App.Tests.Solutions.CHK
         public int ComputePriceFailedTest3(string skus)
         {
             CheckoutSolution CheckoutSolution = new CheckoutSolution();
-            return CheckoutSolution.ComputePrice(skus);
+            int Price = CheckoutSolution.ComputePrice(skus);
+            return Price;
         }
     }
 }
