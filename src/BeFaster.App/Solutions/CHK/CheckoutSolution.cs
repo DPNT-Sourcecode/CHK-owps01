@@ -72,17 +72,11 @@ namespace BeFaster.App.Solutions.CHK
 
             ItemSpecification RecipientItem = SpecificationOfEachItem[itemSpecification.FreebieOffer.Recipient];
             int PriceToPayForRecipientItems = RecipientCount * RecipientItem.BasePrice;
+            bool HasDiscount = RecipientItem.DiscountOffers != null;
 
             if (RecipientCount > NumberOfFreebies)
             {
-                if (RecipientItem?.DiscountOffers.Count == 1)
-                {
-                    PriceToPayForRecipientItems = GetItemDiscountPrice(RecipientItem, RecipientCount - NumberOfFreebies);
-                }
-                else if (RecipientItem?.DiscountOffers.Count > 1)
-                {
-                    PriceToPayForRecipientItems = GetItemWithMultipleDiscountPrice(RecipientItem, RecipientCount - NumberOfFreebies);
-                }
+                PriceToPayForRecipientItems = GetRecipientPrice(NumberOfFreebies, RecipientCount, RecipientItem, PriceToPayForRecipientItems);
 
                 return Price - PriceToPayForRecipientItems;
             }
@@ -99,6 +93,20 @@ namespace BeFaster.App.Solutions.CHK
 
                 return Price - PriceToPayForRecipientItems;
             }
+        }
+
+        private static int GetRecipientPrice(int NumberOfFreebies, int RecipientCount, ItemSpecification RecipientItem, int PriceToPayForRecipientItems)
+        {
+            if (RecipientItem?.DiscountOffers.Count == 1)
+            {
+                PriceToPayForRecipientItems = GetItemDiscountPrice(RecipientItem, RecipientCount - NumberOfFreebies);
+            }
+            else if (RecipientItem?.DiscountOffers.Count > 1)
+            {
+                PriceToPayForRecipientItems = GetItemWithMultipleDiscountPrice(RecipientItem, RecipientCount - NumberOfFreebies);
+            }
+
+            return PriceToPayForRecipientItems;
         }
 
         private static int GetFreebieOfSameItemPrice(ItemSpecification itemSpecification, int itemCount)
@@ -404,6 +412,7 @@ namespace BeFaster.App.Solutions.CHK
 
     }
 }
+
 
 
 
