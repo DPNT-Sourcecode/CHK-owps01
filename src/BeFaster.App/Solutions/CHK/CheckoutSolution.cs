@@ -70,15 +70,24 @@ namespace BeFaster.App.Solutions.CHK
                 return Price;
             }
 
+            ItemSpecification RecipientItem = SpecificationOfEachItem[itemSpecification.FreebieOffer.Recipient];
+            int PriceToPayForRecipientItems = RecipientCount * RecipientItem.BasePrice;
+
             if (RecipientCount > NumberOfFreebies)
             {
-                return Price - ((RecipientCount - NumberOfFreebies) * SpecificationOfEachItem[itemSpecification.FreebieOffer.Recipient].BasePrice);
+                if (RecipientItem.DiscountOffers.Count == 1)
+                {
+                    PriceToPayForRecipientItems = GetItemDiscountPrice(RecipientItem, RecipientCount - NumberOfFreebies);
+                }
+                else if (RecipientItem.DiscountOffers.Count > 1)
+                {
+                    PriceToPayForRecipientItems = GetItemWithMultipleDiscountPrice(RecipientItem, RecipientCount - NumberOfFreebies);
+                }
+
+                return Price - PriceToPayForRecipientItems);
             }
             else
             {
-                ItemSpecification RecipientItem = SpecificationOfEachItem[itemSpecification.FreebieOffer.Recipient];
-                int PriceToPayForRecipientItems = RecipientCount * RecipientItem.BasePrice;
-
                 if (RecipientItem.DiscountOffers.Count == 1)
                 {
                     PriceToPayForRecipientItems = GetItemDiscountPrice(RecipientItem, RecipientCount);
@@ -395,4 +404,5 @@ namespace BeFaster.App.Solutions.CHK
 
     }
 }
+
 
