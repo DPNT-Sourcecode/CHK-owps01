@@ -65,7 +65,7 @@ namespace BeFaster.App.Solutions.CHK
 
             int RecipientCount = CountOfEachItem.ContainsKey(itemSpecification.FreebieOffer.Recipient) ? CountOfEachItem[itemSpecification.FreebieOffer.Recipient] : 0;
 
-            if (RecipientCount == 0)
+            if (RecipientCount == 0 || NumberOfFreebies == 0)
             {
                 return Price;
             }
@@ -411,3 +411,4 @@ namespace BeFaster.App.Solutions.CHK
 
     }
 }
+
