@@ -307,7 +307,7 @@ namespace BeFaster.App.Solutions.CHK
                 BasePrice = 40,
                 FreebieOffer = new FreebieOffer()
                 {
-                    Multiple = 4,
+                    Multiple = 3,
                     Recipient = 'M'
                 },
                 OfferType = OfferType.FreebieOfDifferentItem
@@ -411,5 +411,6 @@ namespace BeFaster.App.Solutions.CHK
 
     }
 }
+
 
 
